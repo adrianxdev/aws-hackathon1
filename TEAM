@@ -1,0 +1,19 @@
+##Adrian Rodriguez
+Servant Leader to the RECOVER-EASE team registering on devpost and performing administrative tasks related to the hackathon.
+Created the jupyter notebook, trained the model on sagemaker studio lab and exported it for deployment to EC2.
+Built front end UI and deployed it to beanstack with help from John Davis. Then, integrated it to EC2 endpoint deployed by Asad.
+BIO: Recently joined the RTP AWS group (https://rtp-aws.org/) run by John and others. Currently, launching a Durham, NC based startup.
+
+##Asad Saeed
+Took model output from notebook and wrapped an API around it. Also, provisioned the necessary EC2 resources and S3 buckets to allow for real-time predictions.
+BIO: Graduated in 2018 in BSCS and have been working as a full stack developer and machine learning engineer ever since.
+
+
+##John Davis
+Training data capturing and labeling. Helped deploy the MVP UI using beanstack via code commit. 
+BIO: Co-lead in Research Triangle Park AWS user group ever Sunday from 11-12 (EST). https://rtp-aws.org/
+
+
+##Jake Heffley
+Downloading and organized images to be used as training data for the model.
+BIO: Data scientist by training at University of North Carolina Chapel Hill. 
