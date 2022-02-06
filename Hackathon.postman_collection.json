@@ -1,0 +1,65 @@
+{
+	"info": {
+		"_postman_id": "3d9a90d4-740a-4304-8265-16b980aae56d",
+		"name": "Hackathon",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Predict",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Image",
+							"type": "file",
+							"src": "/C:/Users/aceasad/Desktop/Projects/hackathon/hackathon Artifacts/flooding/5f46b5e271f8b.image.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://ec2-54-224-68-136.compute-1.amazonaws.com:8080/api/predict",
+					"protocol": "http",
+					"host": [
+						"ec2-54-224-68-136",
+						"compute-1",
+						"amazonaws",
+						"com"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"predict"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Download Model from S3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://ec2-54-224-68-136.compute-1.amazonaws.com:8080/api/download",
+					"protocol": "http",
+					"host": [
+						"ec2-54-224-68-136",
+						"compute-1",
+						"amazonaws",
+						"com"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"download"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
