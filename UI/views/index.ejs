@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="/assets/styles.css" />
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/images/logo.png">
+  <title>RECOVER-EASE</title>
+</head>
+
+<body class="simple-style">
+
+
+  <% include ./partials/title-bar.ejs %>
+
+    <div class="padded">
+      <!-- Form Partials -->
+
+      <br>
+      <hr>
+
+
+      </td>
+
+
+      <h1>WHERE?</h1>
+      <button onclick="getLocation()">Click to add your location to the report</button>
+
+      <p id="demo"></p>
+
+      <script>
+        var x = document.getElementById("demo");
+        var what = document.getElementById("what");
+
+
+        function getLocation() {
+          x.innerHTML = "Looking for you..."
+          var what = document.getElementById("what");
+       what.style.display = "block";
+
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, errorHandler, { enableHighAccuracy: true, maximumAge: 10000 });
+
+
+            var what = document.getElementById("what");
+
+
+
+          } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+            what.style.display = "block";
+
+
+          }
+        }
+
+
+        function errorHandler(errorObj) {
+          alert(errorObj.code + ": " + errorObj.message);
+        }
+
+        function showPosition(position) {
+          x.innerHTML = "Latitude: " + position.coords.latitude +
+            "<br>Longitude: " + position.coords.longitude;
+          var what = document.getElementById("what");
+          what.style.display = "block";
+
+        }
+      </script>
+
+
+      <div id="what" style="display:none">
+        <h1>WHAT?</h1>
+        <p>Click to take a photo:</p>
+
+        <div id="file-picker" class="padded">
+
+          <form method="POST" action="http://ec2-54-224-68-136.compute-1.amazonaws.com:8080/api/predict"
+            enctype="multipart/form-data">
+
+            <input name="Image" id="Image" type="file" accept="image/*" onchange="loadFile(event)">
+            <br>
+            <img id="output" />
+            <script>
+
+              var loadFile = function (event) {
+                var output = document.getElementById('output');
+                output.src = URL.createObjectURL(event.target.files[0]);
+
+
+                const formData = new FormData();
+
+
+                formData.append('Image', event.target.files[0]);
+
+
+
+
+                fetch('http://ec2-54-224-68-136.compute-1.amazonaws.com:8080/api/predict', {
+                  method: "POST",
+                  body: formData
+                })
+                  .then(resp => resp.json())
+                  //we admit the server respond with the saved object: { id: 1, name:"myDummyName" } 
+                  .then(json => {
+                    console.log("Response: " + json)
+
+                    //add a mapping table from predicion to first responder team (Name and email)
+
+                    if (json.includes("fire")) {
+
+                      var who = document.getElementById("who");
+                      who.style.display = "block";
+                      var done = document.getElementById("done");
+                      who.style.display = "block";
+
+                      who.innerHTML = json + "<h1>SUBMIT</h1><button onclick=\"location.href='mailto:FD@yourapplicationdomain.com?subject=FIRE REPORT&body=THIS IS ONLY A TEST OR THIS WOULD HAVE REAL INFO TO REPORT!'\">SUBMIT FIRE REPORT</button>"
+
+                    }
+                    if (json.includes("flood")) {
+
+                      var who = document.getElementById("who");
+                      who.style.display = "block";
+                      var done = document.getElementById("done");
+                      who.style.display = "block";
+
+                      who.innerHTML = json + "<h1>SUBMIT</h1><button onclick=\"location.href='mailto:FIRE_DEPT@yourapplicationdomain.com?subject=FLOODED AREA TO REPORT&body=THIS IS ONLY A TEST OR THIS WOULD HAVE REAL INFO TO REPORT!'\">SUBMIT FLOOD REPORT</button>"
+
+
+                    }
+
+
+                    if (json.includes("downTrees")) {
+
+                      var who = document.getElementById("who");
+                      who.style.display = "block";
+                      var done = document.getElementById("done");
+                      who.style.display = "block";
+
+                      who.innerHTML = json + "<h1>SUBMIT</h1><button onclick=\"location.href='mailto:trees@yourapplicationdomain.com?subject=DOWN TREE REPORT&body=THIS IS ONLY A TEST OR THIS WOULD HAVE REAL INFO TO REPORT!'\">SUBMIT DOWN TREE REPORT</button>"
+
+
+                    }
+                    if (json.includes("structural")) {
+
+                      var who = document.getElementById("who");
+                      who.style.display = "block";
+                      var done = document.getElementById("done");
+                      who.style.display = "block";
+
+                      who.innerHTML = json + "<h1>SUBMIT</h1><button onclick=\"location.href='mailto:FEMA@yourapplicationdomain.com?subject=STRUCTURAL DAMAGE REPORT&body=THIS IS ONLY A TEST OR THIS WOULD HAVE REAL INFO TO REPORT!'\">SUBMIT REPORT</button>"
+
+
+                    }
+                    if (json.includes("electricUtility")) {
+
+                      var who = document.getElementById("who");
+                      who.style.display = "block";
+                      var done = document.getElementById("done");
+                      who.style.display = "block";
+
+                      who.innerHTML = json + "<h1>SUBMIT</h1><button onclick=\"location.href='mailto:xyz@yourapplicationdomain.com?subject=UTILITY DOWN REPORT&body=THIS IS ONLY A TEST OR THIS WOULD HAVE REAL INFO TO REPORT!'\">SUBMIT REPORT</button>"
+
+
+                    }
+
+
+
+                    var p = document.getElementById("prediction");
+                    p.innerHTML = json
+
+
+                    var who = document.getElementById("who");
+                    who.style.display = "block";
+                    var done = document.getElementById("done");
+                    who.style.display = "block";
+
+                    who.innerHTML = json + "<h1>SUBMIT</h1><button onclick=\"location.href='mailto:xyz@yourapplicationdomain.com?subject=TEST REPORT&body=THIS IS ONLY A TEST OR THIS WOULD HAVE REAL INFO TO REPORT!'\">SUBMIT REPORT</button>"
+
+
+
+
+                  })
+                  .catch(err => console.log("An error occured :" + err));
+
+
+
+
+
+                //  output.onload = function() {
+                //    URL.revokeObjectURL(output.src) // free memory
+                // alert(output.src);
+
+                //  }
+
+
+
+              };
+
+
+
+
+            </script>
+
+
+          </form>
+        </div>
+      </div>
+      <div id="who" style="display:none">
+
+        <h1>SUBMIT</h1>
+
+        <!-- dont need this button anymore because it happens on submit<input type="submit" value="Predict a match">-->
+        <div id="prediction">
+        </div>
+
+      </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/assets/styles.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico">
+    <title>Rekog</title>
+</head>
+
+<body class="simple-style" onLoad="activateUI('<%= ui.flow.activateDiv %>','<%= ui.flow.activateButton %>')">
+
+
+    <% include ./partials/title-bar.ejs %>
+
+    <div class="padded">
+        <!-- Form Partials -->
+
+        <% include ./partials/file-picker.ejs %>
+        <br>
+        <hr>
+
+
+        </td>
+        <table width="100%">
+            <tr>
+                <td width='50%'>
+                    <% include ./partials/image-display.ejs %>
+                </td>
+                <td width='50%>'>
+          
+                    <% include ./partials/label-result.ejs %>
+
+                </td>
+            </tr>
+        </table>
+
+<hr>
+
+
+<p>Click the button to get your coordinates.</p>
+
+<button onclick="getLocation()">Click to add your location to the report</button>
+
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+}	
+</script>
+
+<br><div class="text-center">
+<input type="submit" value="Submit damage to repsonder">
+</div>
+    </div>
+
+</body>
+
+</html>
+
+<% include ./partials/ui-scripts.ejs %>
+
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+
+<h1> WHERE?</h1>
+<p>Click to grab your location:</p>
+
+<button onclick="getLocation()">Click to add your location to the report</button>
+
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+var what = document.getElementById("what");
+what.style.display = "none";
+
+function getLocation() {
+    x.innerHTML = "We're looking for you. Please wait..."; 
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+  var what = document.getElementById("what");
+
+  what.style.display = "block";
+
+}
+
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+}	
+</script>
+
+<div>
